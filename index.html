@@ -31,7 +31,7 @@
       display: flex;
       justify-content: center;
       align-items: center;
-      min-height: 100vh;
+      min-height: 100dvh; /* ใช้ dvh แก้ปัญหาแถบเบราว์เซอร์มือถือบัง */
       box-sizing: border-box;
       overflow: hidden; 
     }
@@ -71,12 +71,16 @@
       border-radius: 30px;
       text-align: center;
       position: relative;
-      height: calc(100vh - 40px); 
+      height: calc(100dvh - 40px); /* ใช้ dvh เพื่อความยืดหยุ่น */
       overflow-y: auto; 
       box-sizing: border-box;
     }
 
+    /* จัดให้อยู่กึ่งกลางหน้าจอ (สำหรับหน้า Login/Home) */
     .center-content { display: flex; flex-direction: column; justify-content: center; align-items: center; min-height: 100%; padding: 20px 0; }
+    
+    /* จัดให้ชิดด้านบน (สำหรับหน้าทำข้อสอบ) */
+    .top-content { display: flex; flex-direction: column; justify-content: flex-start; align-items: center; min-height: 100%; padding: 20px 0 40px 0; }
 
     .form-box {
       background: rgba(255, 255, 255, 0.5); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
@@ -192,9 +196,17 @@
     .custom-modal-actions { display: flex; justify-content: center; gap: 10px; margin-top: 20px; }
     .custom-modal-actions button { margin: 0; flex: 1; padding: 12px 10px; }
 
+    /* =========================================
+       📱 Mobile Viewport Fix
+       ========================================= */
     @media (max-width: 768px) {
       body { padding: 0; }
-      .container { height: 100dvh; min-height: 100vh; border-radius: 0; padding: 15px; border: none; }
+      .container { 
+        height: 100dvh; /* บังคับใช้ 100dvh แน่นอนแก้เบราว์เซอร์บัง */
+        border-radius: 0; 
+        padding: 15px 15px 30px 15px; /* เผื่อพื้นที่ด้านล่างเพิ่มนิดหน่อย */
+        border: none; 
+      }
       .form-box { padding: 20px 15px; margin: 10px auto; border-radius: 15px; }
       h2 { font-size: 24px; }
       .emoji-header { font-size: 50px !important; }
@@ -210,12 +222,12 @@
 </head>
 <body>
 
-<!-- ================= หน้าหลักผู้ใช้ ================= -->
+<!-- ================= หน้าหลักผู้ใช้ (อยู่ตรงกลาง) ================= -->
 <div class="container glass-effect fade-in center-content" id="home-page">
   <div style="margin-bottom: 10px;">
-    <img height="150" src="icon.png" alt="">
+    <img width="25%" height="auto" src="icon.png" alt="" />
   </div>
-  <h2>เกมอัจฉริยะ<br><small style="font-size: 18px; color: #fff; text-shadow: none;">การวัดและประเมินผล</small></h2>
+  <h2>เกมแบบทดสอบ<br><small style="font-size: 18px; color: #fff; text-shadow: none;">แนวคิดเบื้องต้นเกี่ยวกับการวัดและประเมินผลการเรียนรู้</small></h2>
   
   <div class="form-box">
     <p style="margin-top: 0; color: #795548; font-weight: 600; font-size: 15px;">กรอกข้อมูลเพื่อเริ่มทำแบบทดสอบ</p>
@@ -233,7 +245,7 @@
   </div>
 </div>
 
-<!-- ================= หน้าล็อกอิน Admin ================= -->
+<!-- ================= หน้าล็อกอิน Admin (อยู่ตรงกลาง) ================= -->
 <div class="container glass-effect hidden fade-in center-content" id="admin-login-page">
   <div style="margin-bottom: 10px;">
     <span class="emoji-header" style="font-size: 60px;">🔒</span>
@@ -250,9 +262,9 @@
   <button class="btn-back" onclick="goHome()" style="margin-top: 20px;">🏠 กลับหน้าหลัก</button>
 </div>
 
-<!-- ================= หน้าทำข้อสอบ ================= -->
-<div class="container glass-effect hidden center-content" id="quiz-page">
-  <div style="max-width: 800px; margin: 0 auto; width: 100%; padding-top: 2vh; height: 100%; display: flex; flex-direction: column; justify-content: center;">
+<!-- ================= หน้าทำข้อสอบ (จัดชิดด้านบน) ================= -->
+<div class="container glass-effect hidden top-content" id="quiz-page">
+  <div style="max-width: 800px; margin: 0 auto; width: 100%; padding-top: 2vh; display: flex; flex-direction: column; justify-content: flex-start; padding-bottom: 30px;">
     <div style="text-align: center;">
       <h3 id="question-number" style="background: rgba(255,255,255,0.6); padding: 5px 20px; border-radius: 20px; display: inline-block; margin-top: 0; border: 1px solid rgba(255,255,255,0.8);">ข้อที่ 1/15</h3>
       <p id="question-text" style="font-size: 18px; font-weight: 600; margin: 15px 0; line-height: 1.5; padding: 0 10px; color: #fff; text-shadow: 1px 1px 3px rgba(0,0,0,0.2);">คำถามจะแสดงที่นี่</p>
@@ -263,7 +275,7 @@
   </div>
 </div>
 
-<!-- ================= หน้าผลลัพธ์นักเรียน ================= -->
+<!-- ================= หน้าผลลัพธ์นักเรียน (อยู่ตรงกลาง) ================= -->
 <div class="container glass-effect hidden center-content" id="result-page">
   <div>
     <h2 style="font-size: 50px; margin-bottom: 10px; margin-top: 0;">🎉</h2>
@@ -277,7 +289,7 @@
     </div>
   </div>
   
-  <div id="user-answer-key" class="hidden fade-in" style="margin-top: 20px; width: 100%;"></div>
+  <div id="user-answer-key" class="hidden fade-in" style="margin-top: 20px; width: 100%; padding-bottom: 30px;"></div>
 </div>
 
 <!-- ================= หน้า Admin Full Layout ================= -->
@@ -305,7 +317,7 @@
     <div id="admin-backdrop" onclick="toggleSidebar(true)" style="position: absolute; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.3); backdrop-filter: blur(3px); z-index: 9; display: none; opacity: 0; transition: 0.3s;"></div>
 
     <!-- พื้นที่แสดงเนื้อหาหลัก -->
-    <div id="admin-scroll-area" style="flex: 1; overflow-y: auto; padding: 20px 15px; width: 100%;">
+    <div id="admin-scroll-area" style="flex: 1; overflow-y: auto; padding: 20px 15px 40px 15px; width: 100%;">
        
        <div id="admin-loading" class="loading hidden">กำลังโหลด... ⏳</div>
        
@@ -405,7 +417,6 @@ function showCustomModal(message, type = 'info', isConfirm = false) {
     const btnConfirm = document.getElementById('modal-btn-confirm');
     const btnCancel = document.getElementById('modal-btn-cancel');
     
-    // แปลงการขึ้นบรรทัดใหม่ (\n) เป็นแท็ก <br>
     msg.innerHTML = message.replace(/\n/g, '<br>');
     
     if(type === 'warning') { icon.innerHTML = '⚠️'; title.innerText = 'แจ้งเตือน'; title.style.color = '#FF8C00'; }
@@ -423,7 +434,6 @@ function showCustomModal(message, type = 'info', isConfirm = false) {
     
     overlay.classList.remove('hidden');
     
-    // ทำลาย Event เดิมแล้วใส่ใหม่ เพื่อป้องกันการซ้อนทับเมื่อเรียกหลายครั้ง
     const newBtnConfirm = btnConfirm.cloneNode(true);
     btnConfirm.parentNode.replaceChild(newBtnConfirm, btnConfirm);
     const newBtnCancel = btnCancel.cloneNode(true);
